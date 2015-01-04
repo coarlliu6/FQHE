@@ -26,17 +26,24 @@ private:
   int LLn; // Landau level no.
   double param[4]; // parameters of the interaction; like [a, b, c1, c2]
   char type[3];  //interaction type like "DC"
+  double Q;  // B field of monople
   double* itr;
   std::complex<double>* itrC;
   // for pseudo-potential method in disk
   double vm(int m);
-  double cgc(int m1, int m2, int m);
-  double dItr(int m1, int m2, int m3);
+  double cgc(int m1, int m2, int m);   //m1 & m2 -> mi,mj and m is the relative angular momentum
+  double dItr(int m1, int m2, int m3);   // (m1 & m2)  vs  (m3 & m4)  ==> (mi,mj) & (m(relative),M(C.M.))
+
+  // for interactions in sphere
+  double vl(int l, double Q); // l = m : relative angular momentum; Q: the magnetic strength of the monople at origin.
+  double cgcs(int m1, int m2, int m, double Q);
+  double sItr(int m1, int m2, int m3, double Q);
+
   // for interactions in torus
   double tF(double qx, double qy);
   std::complex<double> tItr(int m1, int m2, int m3);
 public:
-  interaction(int nOrb_, int LLn_, double param_[], char type_[]);
+  interaction(int nOrb_, int LLn_, double param_[], char type_[], double Q_);
   void itrGen();
   void print();
   void itrPrint(int m1, int m2, int m3);

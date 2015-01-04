@@ -1,7 +1,7 @@
 CPP = g++
 CFLAGS = -Wall -g
 
-ARPACKPP_DIR = ../../../arpack++
+ARPACKPP_DIR = /usr/local/arpack++
 #!! relative location of arpack++ file, it may be called arpackpp...
 
 PLAT         = linux

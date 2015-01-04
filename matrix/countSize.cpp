@@ -15,6 +15,12 @@ long matrix::estimateSize()
 	* dim / 2
 	* 1.1;
       break;
+    case 'S':
+      size = ((binomial_coefficient<double>(n1,2) * (nOrb - n1) * (1.0 * n1 / nOrb)
+               + binomial_coefficient<double>(n2,2) * (nOrb - n2) * (1.0 * n2 / nOrb)
+               + n1 * n2 * (nOrb - n1) * (1.0 * n2 / nOrb)))
+        * dim / 2
+        *1.1; 
     case 'T':
       size = ((binomial_coefficient<double>(n1, 2) * (nOrb - n1) * (1.0 * n1 / nOrb) 
 	       + binomial_coefficient<double>(n2, 2) * (nOrb - n2) * (1.0 * n2 / nOrb) 
@@ -57,6 +63,9 @@ long matrix::countSize()
 	case 'D': 
 	  rNo = dOffME(i, bases[i], pB1, antiPB1, oB1, pB2, antiPB2, oB2, 'C');
 	  break;
+        case 'S': 
+          rNo = dOffME(i, bases[i], pB1, antiPB1, oB1, pB2, antiPB2, oB2, 'C');
+          break;
 	case 'T': 
 	  tOffME(i, bases[i], pB1, antiPB1, oB1, pB2, antiPB2, oB2, 'C');
 	  break;

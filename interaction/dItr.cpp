@@ -10,28 +10,31 @@ double interaction::vm(int m)
 {
   using namespace std;
   int n = LLn;
-  gsl_function F;
+  gsl_function F;  // a struc having fxn and *param
   double result, error;
   int p[2];
   p[0] = n;
-  p[1] = m;
-  gsl_integration_workspace* w = gsl_integration_workspace_alloc(1000);
+  p[1] = m;      //?
+  gsl_integration_workspace* w = gsl_integration_workspace_alloc(1000);  //referto  the size of the space to hold the 1000 double intervals, their integ. results and error estimates 
   F.function = &vmIntegrand;
   F.params = &p;
-  gsl_integration_qagiu(&F, 0, 1e-13, 0, 1000, w, &result, &error);
+  gsl_integration_qagiu(&F, 0, 1e-13, 0, 1000, w, &result, &error);    //Compute the integral of F from +- infinity
   gsl_integration_workspace_free(w);
   return result;
 }
 
-double interaction::cgc(int m1, int m2, int m)
+double interaction::cgc(int m1, int m2, int m)   // m1 & m2 are the angular momentums at any two states, and m is the relative angular momentum  
 {
   if (m1 + m2 < m)
     return 0;
+
   using namespace boost::math;
   using namespace std;
   double result = 0;
+
   for (int n = std::max(0, m - m2); n <= std::min(m, m1); n++)
     result += pow(-1, m - n) * binomial_coefficient<double>(m1, n) * binomial_coefficient<double>(m2, m - n);
+
   result *= sqrt(factorial<double>(m1 + m2 - m) * factorial<double>(m) / (factorial<double>(m1) * factorial<double>(m2) * pow(2, m1 + m2)));
   return result;
 }
@@ -39,10 +42,12 @@ double interaction::cgc(int m1, int m2, int m)
 double interaction::dItr(int m1, int m2, int m3)
 {
   using namespace std;
-  int m4 = m1 + m2 - m3;
+  int m4 = m1 + m2 - m3;  
   if (m4 < 0)
     return 0;
+
   double result = 0;
+
   switch (type[1])
     {
     case 'C':

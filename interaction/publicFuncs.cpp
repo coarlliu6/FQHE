@@ -2,11 +2,12 @@
 #include <complex>
 #include <iostream>
 
-interaction::interaction(int nOrb_, int LLn_, double param_[], char type_[])
+interaction::interaction(int nOrb_, int LLn_, double param_[], char type_[], double Q_)
 {
   using namespace std;
   nOrb = nOrb_;
   LLn = LLn_;
+  Q = Q_;
   int i;
   for (i = 0; i < 4; i++)
     param[i] = param_[i];
@@ -34,6 +35,13 @@ void interaction::itrGen()
 	  for (m3 = 0; m3 < nOrb; m3++)
 	    itrC[m1 * nOrb * nOrb + m2 * nOrb + m3] = tItr(m1, m2, m3);
       break;
+     case 'S':
+       itr = new double[nOrb * nOrb * nOrb];
+       for (m1 =0; m1 < nOrb; m1++)
+         for (m2 = 0; m2 < nOrb; m2++)
+           for (m3 = 0; m3 < nOrb; m3++)
+             itr[m1 * nOrb * nOrb + m2 * nOrb + m3] = sItr(m1, m2, m3, Q);
+       break;
     }
 }
 

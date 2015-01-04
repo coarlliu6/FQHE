@@ -9,7 +9,7 @@ int matrix::dOffME(int position, int deci, int pB1[], int antipB1[], int oB1[], 
   int sign, subSize = 1;
   int rNo = 1;
   // spin up and up
-  if (n1 != 0 && n2 != 0) // this is added bacause if there is just one component of electrons, I want it run in the spin "down and down" section.
+  if (n1 != 0 && n2 != 0) // this is added bacause if there is just one component of electrons, I want it to run in the spin "down and down" section.
     for (int i1 = 0; i1 < n1; i1++)
       {
 	m1 = pB1[i1];
@@ -19,12 +19,12 @@ int matrix::dOffME(int position, int deci, int pB1[], int antipB1[], int oB1[], 
 	    for (int i3 = 0; i3 < nOrb - n1; i3++)
 	      {
 		m3 = antipB1[i3];
-		m4 = m1 + m2 - m3;
+		m4 = m1 + m2 - m3;  
 		if (m4 > m3 && m4 < nOrb && oB1[m4] == 0)
 		  {
 		    int newDeci = deci + (long) (pow(2.0, 2 * nOrb - 1 - m3) + pow(2.0, 2 * nOrb - 1 - m4) + 0.5) - (long) (pow(2.0, 2 * nOrb - 1 - m1) + pow(2.0, 2 * nOrb - 1 - m2) + 0.5);
 		    int newPosition = binarySearchBToS(newDeci, 0, dim - 1, bases);
-		    if (newPosition > position && typ == 'O')
+		    if (newPosition > position && typ == 'O') //in order to bring m2 next to m1 and m4 to m3 (or oppsite) need to count how many particles in between; passing a particle causes a -1 sign
 		      {
 			sign = 1;
 			for (int m = m1 + 1; m < m2; m++)

@@ -9,7 +9,7 @@ double dFCoulomb(double k) {return 2 * M_PI / k;}
 double vmIntegrand(double k, void* params)
 {
   using namespace std;
-  int n = *(int *) params, // means 0th Landau level
+  int n = *(int *) params, // means 0th Landau level; see 'vm' fxn : 'p' array; means *p[0]
     m = *((int *) params + 1);
     double ln = gsl_sf_laguerre_n(n, 0, k*k/2),
     lm = gsl_sf_laguerre_n(m, 0, k*k),

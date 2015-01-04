@@ -20,7 +20,7 @@ int basis::dGen()
     constr(n2, b2, qn2);
 
   long dimApprox = (long)(dim1) * dim2 / nOrb * 1.2;
-  dim = 0;
+  dim = 0; //total # of bases which have total ang. momentum qn
   bases = new long[dimApprox];
   int i, j;
   int deciShift = (int) (pow(2, nOrb) + 0.5);

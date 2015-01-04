@@ -49,12 +49,13 @@
    [[file:basis/constr.cpp]]
 
 ** dGen
-   :PROPERTIES:
+   :PROPERTIES: use constr() fxn to create all basis and then choose those 
+                satisfy required angular momentum.
    :geometry: disk
    :typeInClass: private
    :END:
-   Generate the specific parameters for torus geometry
-   [[file:basis/tool.cpp]]
+   Generate the basis for disk geometries.
+   [[file:basis/dGen.cpp]]
 
 ** sTBasisJudge
    :PROPERTIES:
@@ -81,12 +82,12 @@
    [[file:basis/tGen.cpp]]
 
 ** bGen
-   :PROPERTIES:
+   :PROPERTIES: input=> D or T ; output=> dim ; call dGen() fxn
    :geometry: general
    :typeInClass: public
    :END:
    Use different functions to generate bases dependent on the geometry of the problem.
-   [[file:basis/tGen.cpp]]
+   [[file:basis/publicFuncs.cpp]]
 
 ** print
    :PROPERTIES:
@@ -94,7 +95,7 @@
    :typeInClass: public
    :END:
    Print out the bases in the terminal.
-   [[file:basis/tGen.cpp]]
+   [[file:basis/publicFuncs.cpp]]
    
 * interaction
   :PROPERTIES:
@@ -116,7 +117,7 @@
    [[file:interaction/publicFuncs.cpp]]
    
 ** dFCoulomb
-   :PROPERTIES:
+   :PROPERTIES: return a number call 2*pi/k, where k is an input.
    :geometry: disk
    :interaction: Coulomb
    :typeInClass: not in class
@@ -124,7 +125,7 @@
    [[file:interaction/vmIntegrand.cpp]]
 
 ** vmIntegrand
-   :PROPERTIES:
+   :PROPERTIES: define the fxn form for the integral of V^(eff) _(n,m); n & m are the higher L.L.
    :geometry: disk
    :interaction: general
    :typeInClass: not in class
@@ -132,53 +133,36 @@
    [[file:interaction/vmIntegrand.cpp]]
 
 ** vm
-   :PROPERTIES:
+   :PROPERTIES: create a struc in gsl with fxn, F, and *param; define the fxn form as "vmIntegrand", and then integrate the fxn by using gsl fxn
    :geometry: disk
    :interaction: general
    :typeInClass: private
    :END:
    [[file:interaction/dItr.cpp]]
-
-** cgc
-   :PROPERTIES:
-   :geometry: disk
-   :interaction: general
-   :typeInClass: private
-   :END:
-   [[file:interaction/dItr.cpp]]
-
-** dItr
-   :PROPERTIES:
-   :geometry: disk
-   :interaction: general
-   :typeInClass: private
-   :END:
-   [[file:interaction/dItr.cpp]]
-
-** tF
-   :PROPERTIES:
-   :geometry: torus
-   :interaction: general
-   :typeInClass: private
-   :END:
-   [[file:interaction/tItr.cpp]]
-   
-** tItr
-   :PROPERTIES:
-   :geometry: torus
-   :interaction: general
-   :typeInClass: private
-   :END:
-   [[file:interaction/tItr.cpp]]
 
 ** itrGen
-   :PROPERTIES:
+   :PROPERTIES: use dItr to calculate all coefficients, (m1,m2|v|m3,m4)
    :geometry: general
    :interaction: general
    :typeInClass: public
    :END:
    [[file:interaction/publicFuncs.cpp]]
 
+** dItr(tItr)
+   :PROPERTIES: store all results of cgc and vm to have (m1,m2|v|m3,m4)
+   :geometry: disk (tItr)
+   :interaction: general
+   :typeInClass: private
+   :END:
+   [[file:interaction/dItr(tItr).cpp]]
+
+** cgc
+   :PROPERTIES: calculate the cg coefficient for map (m1,m2) to (m, M)
+   :geometry: general
+   :interaction: general
+   :typeInClass: private
+   :END:
+   [[file:interaction/dItr.cpp]]
 ** itrPrint
    :PROPERTIES:
    :geometry: general
@@ -218,18 +202,32 @@
   :END:
   [[file:matrix/countSize.cpp]]
 
-** estimateSize
+** countSize
    :PROPERTIES:
    :geometry: torus
    :END:
    [[file:matrix/countSize.cpp]]
    omp parallel code
 
+** deciToPOS
+   :PROPERTIES:
+   :geometry: general
+   :END: 
+   trasform a decimal number to the particle, anti-particle and oribtal basis for single-layer cases. 
+   [[file:matrix/tool.cpp]]
+
 ** deciToPOB
    :PROPERTIES:
    :geometry: general
    :END:
    Transform a decimal number to the particle, anti-particle and orbital basis.
+   [[file:matrix/tool.cpp]]
+
+** binarySearchBToS
+   :PROPERTIES:
+   :geometry: general
+   :END: 
+   Given a deci number, search its position in the bases array by binary search method.
    [[file:matrix/tool.cpp]]
 
 ** diaME
@@ -239,9 +237,9 @@
    [[file:matrix/diaME.cpp]]
 
 ** dOffME
-   :PROPERTIES:
+   :PROPERTIES: calculate the interaction components and store them in ATemp, rowTemp(position), and count rNo.
    :geometry: disk
-   :END:
+   :END: return rNo and change 
    [[file:matrix/dME.cpp]]
    
 ** tOffME

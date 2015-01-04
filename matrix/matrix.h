@@ -17,7 +17,7 @@ private:
   char type[2];
   char matrixType;
   int n1, n2, nOrb;
-  int q, N, s, t;
+  int q, N, s, t;  // s: param for torus; t: total angular momentum
   long dim;
   // asked data
   long* bases;
@@ -48,6 +48,8 @@ private:
       {
       case 'D':
 	return m1 + m2;
+      case 'S':
+        return m1 + m2;
       case 'T':
 	return (m1 + m2) % nOrb;	  
       }
@@ -57,6 +59,8 @@ private:
       {
       case 'D':
 	return m1 + m2 == m3 + m4;
+      case 'S':
+        return m1 + m2 == m3 + m4;
       case 'T':
 	return (m1 + m2) % nOrb == (m3 + m4) % nOrb;
       }

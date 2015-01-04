@@ -24,17 +24,23 @@ int basis::bGen()
       break;
     case 'T': tGen();
       break;
+    case 'S': dGen();
+      break;
     }
   std::cout << "dim = " << dim << std::endl;
   return dim;
 }
-
 void basis::print()
 {
   using namespace std;
   int i;
   cout << "The generated bases are:" << endl;
-  cout << "n1 = " << n1 << ", n2 = " << n2 << ", nOrb = " << nOrb << ", qn = " << qn << endl;
+  cout << "n1 = " << n1 << ", n2 = " << n2 << ", nOrb = " << nOrb << ", qn = "; 
+//  if(geometry == 'S')
+//    cout << qn_org << endl;
+//  else
+//    cout << qn << endl;
+
   cout << "------ from the large orbital to the small ------" << endl;
   for (i = 0; i < dim; i++)
     {

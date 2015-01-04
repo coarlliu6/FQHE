@@ -1,7 +1,7 @@
 CPP = g++
 CFLAGS = -Wall -g
 
-BOOST_ROOT = ../../../boost_1_54_0 # !! it is the relative location of boost file
+BOOST_ROOT = /usr/local/boost_1_56_0 # !! it is the relative location of boost file
 
 objects = constr.o tool.o dGen.o tGen.o publicFuncs.o
 

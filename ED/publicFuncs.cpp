@@ -30,6 +30,7 @@ ED::ED(matrix m_, int wn_)
   s = m_.s;
   t = m_.t;
   wn = wn_;
+  //cout<<"dim =" << dim <<""<< "size =" << size << endl;
 }
 
 void ED::arpackpp()
@@ -68,7 +69,7 @@ void ED::arpackpp()
       EigValR = new double[wn];
       EigVecR = new double[wn * dim];
       cout << "Before ED check: dim = " << dim << ", size = " << size << endl;
-      AREig(EigValR, EigVecR, dim, size, A, row, pcol, 'L', wn, "SM");
+      AREig(EigValR, EigVecR, dim, size, A, row, pcol, 'L', wn, "SM");  // form = AREig(EigValR, EigVecR, n, nnz, A, row, pcol, uplo, nev, which)
       EigValue = new double[wn];
       for (int i = 0; i < wn; i++)
 	{

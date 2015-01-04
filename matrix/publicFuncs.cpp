@@ -28,6 +28,10 @@ matrix::matrix(basis b_, interaction itrA_, interaction itrR_, char matrixType_,
       itrA = itrA_.itr;
       itrR = itrR_.itr;
       break;
+    case 'S':
+      itrA = itrA_.itr;
+      itrR = itrR_.itr;
+      break;
     case 'T':
       itrAC = itrA_.itrC;
       itrRC = itrR_.itrC;
@@ -51,7 +55,7 @@ void matrix::mGen()
   long sizeCounted;
   std::cout << "type[0]: " << type[0] << std::endl;
   std::cout << "type[1]: " << type[1] << std::endl;
-  switch (type[1])
+  switch (type[1])  // type[1] here represent the type of counting matrix size, estimate or exact count.
     {
     case 'E': 
       sizeCounted = estimateSize();
@@ -71,6 +75,8 @@ void matrix::mGen()
   switch (type[0])
     {
     case 'D': A = new double[sizeCounted + 1];
+      break;
+    case 'S': A = new double [sizeCounted +1];
       break;
     case 'T': AC = new std::complex<double>[sizeCounted + 1];
       break;
@@ -124,6 +130,13 @@ void matrix::mGen()
 	  rNo = dOffME(j, bases[j], pB1, antiPB1, oB1, pB2, antiPB2, oB2, 'O', rowTemp, ATemp);
 	  dStoreValue(j, rowTemp, ATemp, rNo);
  	  break;
+        case 'S':
+          diaMED(j, bases[j], pB1, pB2, rowTemp, ATemp);
+          ATemp[0] += 100;
+          rowTemp[0] = j;
+          rNo = dOffME(j, bases[j], pB1, antiPB1, oB1, pB2, antiPB2, oB2, 'O', rowTemp, ATemp);
+          dStoreValue(j, rowTemp, ATemp, rNo);
+          break;
 	case 'T': 
 	  diaMET(j, bases[j], pB1, pB2, rowTemp, ACTemp);
 	  ACTemp[0] += 100;
@@ -161,6 +174,16 @@ void matrix::print()
 	cout << A[j] << " ";
       cout << endl;
       break;
+
+    case 'S':
+      for (long j=0; j < size; j++)
+         cout << row[j] << " ";
+      cout << endl;
+      for (long j = 0; j < size; j++)
+         cout << A[j] << " ";
+      cout << endl;
+      break; 
+
     case 'T': 
       int i = 0;
       for (long j = 0; j < size ; j++)

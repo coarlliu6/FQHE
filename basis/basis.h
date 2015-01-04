@@ -11,12 +11,12 @@ class basis
 {
   friend class matrix;
 private:
-  int n1, n2, nOrb, qn, s;
-  char type;
+  int n1, n2, nOrb, qn, s;  //n1 & n2:particle # for different spin components; nOrb: # of orbital; qn: total angular momentum; s: parameter for torus case.
+  char type;  //Choose case: disk(D), sphere(S) or torus(T) 
   long* bases;
   long* bCompare;
   int* tStSetNo;
-  long dim;
+  long dim; //the amount of all possible bases
   int p, q, N;  // parameters for torus geometry
   int pBToDeci(int b[], int n);
   int pBToQN(int b[], int n);

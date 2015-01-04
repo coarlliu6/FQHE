@@ -29,7 +29,7 @@ void matrix::deciToPOB(long dec, int pB1[], int antiPB1[], int oB1[], int pB2[],
 {
   using namespace std;
   long deciShift = (long) (pow(2, nOrb) + 0.5);
-  long dec1 = dec / deciShift, dec2 = dec % deciShift; 
+  long dec1 = dec / deciShift, dec2 = dec % deciShift; //dec1 is shifted back because this is the two-layer case. One layer is shifted to higher order when combining the two layers
   int i = n1 - 1, j = nOrb - n1 - 1, 
     orb = nOrb - 1;
   do

@@ -7,7 +7,7 @@ void basis::constr(int n, long b[], int qn[])
   // initialize the particle basis
   int i, pBasis[n];
   for (i = 0; i < n; i++)
-    pBasis[i] = i;
+    pBasis[i] = i; //pile particles from the lowest orb
 
   // loop for generating bases
   int no = 0, np;
