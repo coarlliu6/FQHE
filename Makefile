@@ -1,7 +1,7 @@
 CPP = g++
 CFLAGS = -Wall -g
 
-BOOST_ROOT = ../../boost_1_54_0 # !! relative location of the boost file
+BOOST_ROOT = /usr/local/boost_1_56_0 # !! relative location of the boost file
 
 OMP = #-fopenmp
 
@@ -25,12 +25,12 @@ ALL_ED_LIBS  = $(ARPACK_LIB) $(LAPACK_LIB) \
                $(BLAS_LIB) $(FORTRAN_LIBS) 
 
 objects = $(BASIS_ROOT)/constr.o $(BASIS_ROOT)/tool.o $(BASIS_ROOT)/dGen.o $(BASIS_ROOT)/tGen.o $(BASIS_ROOT)/publicFuncs.o \
-	$(ITR_ROOT)/vmIntegrand.o $(ITR_ROOT)/dItr.o $(ITR_ROOT)/tItr.o $(ITR_ROOT)/publicFuncs.o \
+	$(ITR_ROOT)/vmIntegrand.o $(ITR_ROOT)/dItr.o $(ITR_ROOT)/sItr.o $(ITR_ROOT)/tItr.o $(ITR_ROOT)/publicFuncs.o \
 	$(MATRIX_ROOT)/countSize.o $(MATRIX_ROOT)/tool.o $(MATRIX_ROOT)/diaME.o $(MATRIX_ROOT)/dME.o $(MATRIX_ROOT)/tME.o $(MATRIX_ROOT)/tMETool.o $(MATRIX_ROOT)/dMETool.o $(MATRIX_ROOT)/publicFuncs.o \
 	$(ED_ROOT)/publicFuncs.o
 objectsA = $(ANALYSIS_ROOT)/nameFileTool.o $(ANALYSIS_ROOT)/input.o $(ANALYSIS_ROOT)/compare.o $(ANALYSIS_ROOT)/newForm.o $(ANALYSIS_ROOT)/output.o $(ANALYSIS_ROOT)/publicFuncs.o
 
-all : basisMake itrMake matrixMake EDMake analysisMake try.o try diskTry.o diskTry TCTP.o TCTP TCTPHPC.o TCTPHPC dipolar.o dipolar analyzeTCTP.o analyzeTCTP analyzeDipolar.o analyzeDipolar
+all : basisMake itrMake matrixMake EDMake analysisMake diskTry.o diskTry #try.o try diskTry.o diskTry TCTP.o TCTP TCTPHPC.o TCTPHPC dipolar.o dipolar analyzeTCTP.o analyzeTCTP analyzeDipolar.o analyzeDipolar
 .PHONY : all
 
 .PHONY: basisMake
@@ -53,11 +53,11 @@ EDMake:
 analysisMake:
 	make -C $(ANALYSIS_ROOT)
 
-try.o : try.cpp $(BASIS_ROOT)/basis.h $(ITR_ROOT)/interaction.h $(MATRIX_ROOT)/matrix.h $(ED_ROOT)/ED.h
-	$(CPP) $(CFLAGS) -c try.cpp
+#try.o : try.cpp $(BASIS_ROOT)/basis.h $(ITR_ROOT)/interaction.h $(MATRIX_ROOT)/matrix.h $(ED_ROOT)/ED.h
+#	$(CPP) $(CFLAGS) -c try.cpp
 
-try : try.o $(objects)
-	$(CPP) $(CFLAGS) $(OMP) $(objects) try.o -o try $(ALL_GSL_LIBS) $(SUPERLU_LIB) $(ALL_ED_LIBS)
+#try : try.o $(objects)
+#	$(CPP) $(CFLAGS) $(OMP) $(objects) try.o -o try $(ALL_GSL_LIBS) $(SUPERLU_LIB) $(ALL_ED_LIBS)
 
 diskTry.o : diskTry.cpp $(BASIS_ROOT)/basis.h $(ITR_ROOT)/interaction.h $(MATRIX_ROOT)/matrix.h $(ED_ROOT)/ED.h
 	$(CPP) $(CFLAGS) -c diskTry.cpp
@@ -65,35 +65,35 @@ diskTry.o : diskTry.cpp $(BASIS_ROOT)/basis.h $(ITR_ROOT)/interaction.h $(MATRIX
 diskTry : diskTry.o $(objects)
 	$(CPP) $(CFLAGS) $(OMP) $(objects) diskTry.o -o diskTry $(ALL_GSL_LIBS) $(SUPERLU_LIB) $(ALL_ED_LIBS)
 
-TCTP.o : TCTP.cpp $(BASIS_ROOT)/basis.h $(ITR_ROOT)/interaction.h $(MATRIX_ROOT)/matrix.h $(ED_ROOT)/ED.h
-	$(CPP) $(CFLAGS) -c TCTP.cpp
+#TCTP.o : TCTP.cpp $(BASIS_ROOT)/basis.h $(ITR_ROOT)/interaction.h $(MATRIX_ROOT)/matrix.h $(ED_ROOT)/ED.h
+#	$(CPP) $(CFLAGS) -c TCTP.cpp
 
-TCTP : TCTP.o $(objects)
-	$(CPP) $(CFLAGS) $(OMP) $(objects) TCTP.o -o TCTP $(ALL_GSL_LIBS) $(SUPERLU_LIB) $(ALL_ED_LIBS)
+#TCTP : TCTP.o $(objects)
+#	$(CPP) $(CFLAGS) $(OMP) $(objects) TCTP.o -o TCTP $(ALL_GSL_LIBS) $(SUPERLU_LIB) $(ALL_ED_LIBS)
 
-TCTPHPC.o : TCTPHPC.cpp $(BASIS_ROOT)/basis.h $(ITR_ROOT)/interaction.h $(MATRIX_ROOT)/matrix.h $(ED_ROOT)/ED.h
-	$(CPP) $(CFLAGS) -c TCTPHPC.cpp
+#TCTPHPC.o : TCTPHPC.cpp $(BASIS_ROOT)/basis.h $(ITR_ROOT)/interaction.h $(MATRIX_ROOT)/matrix.h $(ED_ROOT)/ED.h
+#	$(CPP) $(CFLAGS) -c TCTPHPC.cpp
 
-TCTPHPC : TCTPHPC.o $(objects)
-	$(CPP) $(CFLAGS) $(OMP) $(objects) TCTPHPC.o -o TCTPHPC $(ALL_GSL_LIBS) $(SUPERLU_LIB) $(ALL_ED_LIBS)
+#TCTPHPC : TCTPHPC.o $(objects)
+#	$(CPP) $(CFLAGS) $(OMP) $(objects) TCTPHPC.o -o TCTPHPC $(ALL_GSL_LIBS) $(SUPERLU_LIB) $(ALL_ED_LIBS)
 
-dipolar.o : dipolar.cpp $(BASIS_ROOT)/basis.h $(ITR_ROOT)/interaction.h $(MATRIX_ROOT)/matrix.h $(ED_ROOT)/ED.h
-	$(CPP) $(CFLAGS) -c dipolar.cpp
+#dipolar.o : dipolar.cpp $(BASIS_ROOT)/basis.h $(ITR_ROOT)/interaction.h $(MATRIX_ROOT)/matrix.h $(ED_ROOT)/ED.h
+#	$(CPP) $(CFLAGS) -c dipolar.cpp
 
-dipolar : dipolar.o $(objects)
-	$(CPP) $(CFLAGS) $(OMP) $(objects) dipolar.o -o dipolar $(ALL_GSL_LIBS) $(SUPERLU_LIB) $(ALL_ED_LIBS)
+#dipolar : dipolar.o $(objects)
+#	$(CPP) $(CFLAGS) $(OMP) $(objects) dipolar.o -o dipolar $(ALL_GSL_LIBS) $(SUPERLU_LIB) $(ALL_ED_LIBS)
 
-analyzeTCTP.o : analyzeTCTP.cpp $(ANALYSIS_ROOT)/analysis.h
-	$(CPP) $(CFLAGS) -c analyzeTCTP.cpp
+#analyzeTCTP.o : analyzeTCTP.cpp $(ANALYSIS_ROOT)/analysis.h
+#	$(CPP) $(CFLAGS) -c analyzeTCTP.cpp
 
-analyzeTCTP : analyzeTCTP.o $(objectsA)
-	$(CPP) $(CFLAGS) $(objectsA) analyzeTCTP.o -o analyzeTCTP $(ALL_GSL_LIBS) 
+#analyzeTCTP : analyzeTCTP.o $(objectsA)
+#	$(CPP) $(CFLAGS) $(objectsA) analyzeTCTP.o -o analyzeTCTP $(ALL_GSL_LIBS) 
 
-analyzeDipolar.o : analyzeDipolar.cpp $(ANALYSIS_ROOT)/analysis.h
-	$(CPP) $(CFLAGS) -c analyzeDipolar.cpp
+#analyzeDipolar.o : analyzeDipolar.cpp $(ANALYSIS_ROOT)/analysis.h
+#	$(CPP) $(CFLAGS) -c analyzeDipolar.cpp
 
-analyzeDipolar : analyzeDipolar.o $(objectsA)
-	$(CPP) $(CFLAGS) $(objectsA) analyzeDipolar.o -o analyzeDipolar $(ALL_GSL_LIBS) 
+#analyzeDipolar : analyzeDipolar.o $(objectsA)
+#	$(CPP) $(CFLAGS) $(objectsA) analyzeDipolar.o -o analyzeDipolar $(ALL_GSL_LIBS) 
 
 .PHONY : clean
 clean :
